@@ -1,0 +1,98 @@
+==========================================================================================================
+				Python 3 Installation & Setup
+==========================================================================================================
+
+1. Windows Installation
+	Download: Get the "Windows installer (64-bit)" from python.org.
+
+	Install: Run the .exe. Crucial: Check the box "Add Python to PATH" before clicking Install.
+
+	Verify: Open Command Prompt (cmd) and type: python --version
+**************
+2. macOS Installation
+	Download: Get the "macOS 64-bit universal2 installer" from python.org.
+
+	Install: Run the .pkg file.
+
+	Certificates: Open /Applications/Python 3.x/ and double-click Install Certificates.command.
+
+	Verify: Open Terminal and type: python3 --version
+
+	Note for macOS: 
+	While macOS might prompt you to install a minimal version via Xcode, it is 
+	imperative to use the official installer from python.org. Recent macOS versions 
+	(Monterey 12.3 and later) no longer include Python by default. The manual 
+	installation ensures you have the necessary network certificates and a stable 
+	environment for the OSC bridge.
+**************
+3. Install Required Library (OSC)
+Open your terminal (Command Prompt on Windows / Terminal on macOS) and run the command corresponding to your system:
+
+Windows:
+	pip install python-osc
+
+macOS:
+	pip3 install python-osc
+
+
+==========================================================================================================
+				Manual Execution (Terminal)
+				Use this method for testing or if launchers fail
+==========================================================================================================
+
+1. Navigate to Folder:
+	Open your terminal and use the 'cd' command to go to your project folder.
+	Example: First type cd then go your project folder containing the Python script and drag and drop inside the terminal. Hit enter
+	
+2. Run Script:
+	Windows:
+		python multi_sensor_bridge.py
+		
+	macOS:
+		python3 multi_sensor_bridge.py
+
+
+==========================================================================================================
+				Making your own launchers
+				Make sure the "multi_sensor_bridge.py" and launchers are in the same folder
+==========================================================================================================
+
+1. Windows Launcher (LAUNCH_PONT.bat)
+	a- Open Notepad.
+	b- Paste the following:
+
+@echo off
+title Sensor Bridge 8001-8015
+python "%~dp0multi_sensor_bridge.py"
+pause
+
+	c- Save it as LAUNCH_PONT.bat in your project folder.
+	
+**************
+2. macOS Launcher (LAUNCH_PONT.command)
+	a- Open TextEdit.
+	b- Go to Format > Make Plain Text.
+	c- Paste the following:
+
+#!/bin/bash
+cd "$(dirname "$0")"
+python3 multi_sensor_bridge.py
+
+	c- Save it as LAUNCH_PONT.command in your project folder.
+	
+	d- Permissions (Crucial): Open Terminal, type 'chmod +x ' (with a space), 
+	   drag the .command file into terminal and press Enter.
+
+==========================================================================================================
+				Cleanup & Troubleshooting (Force Close)
+				Use these if the script won't start because "Port is in use"
+==========================================================================================================
+
+If you close the terminal window without pressing CTRL+C, the bridge might stay 
+active in the background, preventing a restart. Use these to force quit:
+
+Windows (In CMD):
+	taskkill /f /im python.exe
+
+macOS (In Terminal):
+	killall -9 python3
